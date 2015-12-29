@@ -1,13 +1,18 @@
-﻿<Controls:MetroWindow x:Class="WpfApplication2.MainWindow"
+﻿<Controls:MetroWindow x:Class="Health.Net.MainWindow"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:local="clr-namespace:Health.Net.Views"
                       Title="Health.Net" 
                       BorderBrush="{DynamicResource AccentColorBrush}"
                       BorderThickness="1"
                       Height="350" 
                       Width="525">
 
-  <!-- your content here -->
+  <TabControl>
+    <TabItem Header="Add Food">
+      <local:AddFoodView DataContext="{Binding AddFoodViewModel}" />
+    </TabItem>
+  </TabControl>
 
 </Controls:MetroWindow>
