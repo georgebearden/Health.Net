@@ -6,9 +6,10 @@
                       BorderBrush="{DynamicResource AccentColorBrush}"
                       BorderThickness="1"
                       SizeToContent="WidthAndHeight"
-                      Height="350" 
-                      Width="525">
-  <TabControl>
+                      ResizeMode="NoResize"
+                      MinHeight="350" 
+                      MinWidth="525">
+  <TabControl BorderThickness="0 1 0 0" BorderBrush="{DynamicResource AccentColorBrush}" MinWidth="525">
     <TabItem Header="Food Log" x:Name="foodLogTabItem" />
     <TabItem Header="Create Food" x:Name="createFoodTabItem" />
   </TabControl>
