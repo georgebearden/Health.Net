@@ -1,28 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Linq;
+using Health.Net.ViewModels;
+using ReactiveUI;
 
 namespace Health.Net.Views
 {
-  /// <summary>
-  /// Interaction logic for AddFoodView.xaml
-  /// </summary>
-  public partial class AddFoodView : UserControl
+  public partial class AddFoodView : IViewFor<AddFoodViewModel>
   {
     public AddFoodView()
     {
       InitializeComponent();
+
+      this.WhenActivated(d =>
+      {
+        d(this.Bind(ViewModel, vm => vm.Name, v => v.nameTextBox.Text));
+        d(this.OneWayBind(ViewModel, vm => vm.FoodGroups, v => v.foodGroupsComboBox.ItemsSource));
+        d(this.Bind(ViewModel, vm => vm.SelectedFoodGroup, v => v.foodGroupsComboBox.SelectedItem));
+        d(this.Bind(ViewModel, vm => vm.Calories, v => v.caloriesTextBox.Text));
+        d(this.Bind(ViewModel, vm => vm.CaloriesFromFat, v => v.caloriesFromFatTextBox.Text));
+        d(this.Bind(ViewModel, vm => vm.Fat, v => v.fatTextBox.Text));
+        d(this.Bind(ViewModel, vm => vm.Cholesterol, v => v.cholesterolTextBox.Text));
+        d(this.Bind(ViewModel, vm => vm.Sodium, v => v.sodiumTextBox.Text));
+        d(this.Bind(ViewModel, vm => vm.Carbohydrates, v => v.carbohydratesTextBox.Text));
+        d(this.Bind(ViewModel, vm => vm.Fiber, v => v.fiberTextBox.Text));
+        d(this.Bind(ViewModel, vm => vm.Sugar, v => v.sugarTextBox.Text));
+        d(this.Bind(ViewModel, vm => vm.Protein, v => v.proteinTextBox.Text));
+        d(this.BindCommand(ViewModel, vm => vm.CreateFood, v => v.createFoodButton));
+      });
     }
+
+    object IViewFor.ViewModel
+    {
+      get { return ViewModel; }
+      set { ViewModel = (AddFoodViewModel)value; }
+    }
+
+    public AddFoodViewModel ViewModel { get; set; }
   }
 }

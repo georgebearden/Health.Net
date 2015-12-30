@@ -1,18 +1,14 @@
-﻿<Controls:MetroWindow x:Class="Health.Net.MainWindow"
+﻿<controls:MetroWindow x:Class="Health.Net.MainWindow"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-                      xmlns:local="clr-namespace:Health.Net.Views"
+                      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       Title="Health.Net" 
                       BorderBrush="{DynamicResource AccentColorBrush}"
                       BorderThickness="1"
+                      SizeToContent="WidthAndHeight"
                       Height="350" 
                       Width="525">
-
   <TabControl>
-    <TabItem Header="Add Food">
-      <local:AddFoodView DataContext="{Binding AddFoodViewModel}" />
-    </TabItem>
+    <TabItem Header="Add Food" x:Name="addFoodTabItem" />
   </TabControl>
-
-</Controls:MetroWindow>
+</controls:MetroWindow>
