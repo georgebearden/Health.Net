@@ -1,5 +1,9 @@
-﻿using Ninject.Modules;
+﻿using System;
+using Ninject.Modules;
 using Health.Net.ViewModels;
+using SQLite.Net;
+using SQLite.Net.Async;
+using SQLite.Net.Platform.Win32;
 
 namespace Health.Net
 {
@@ -7,8 +11,13 @@ namespace Health.Net
   {
     public override void Load()
     {
-      Bind<MainWindow>().ToSelf().InSingletonScope();
+      var connFactory = new Func<SQLiteConnectionWithLock>(() =>
+        new SQLiteConnectionWithLock(
+          new SQLitePlatformWin32(),
+          new SQLiteConnectionString(AppConfig.DbPath, storeDateTimeAsTicks: false)));
 
+      Bind<SQLiteAsyncConnection>().ToConstant(new SQLiteAsyncConnection(connFactory) );
+      Bind<MainWindow>().ToSelf().InSingletonScope();
       Bind<MainWindowViewModel>().ToSelf().InSingletonScope();
       Bind<AddFoodViewModel>().ToSelf().InSingletonScope();
     }

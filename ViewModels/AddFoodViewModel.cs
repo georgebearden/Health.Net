@@ -4,17 +4,19 @@ using System.Reactive;
 using System.Threading.Tasks;
 using Health.Net.Models;
 using ReactiveUI;
+using SQLite.Net.Async;
 
 namespace Health.Net.ViewModels
 {
   public class AddFoodViewModel : ReactiveObject, IDisposable
   {
+    readonly SQLiteAsyncConnection sqlite;
 
-    public AddFoodViewModel()
+    public AddFoodViewModel(SQLiteAsyncConnection sqlite)
     {
-      FoodGroups = new ReactiveList<FoodGroups>();
-      foreach (var foodGroup in Enum.GetValues(typeof(FoodGroups)).Cast<FoodGroups>())
-        FoodGroups.Add(foodGroup);
+      this.sqlite = sqlite;
+
+      FoodGroups = new ReactiveList<FoodGroups>(Enum.GetValues(typeof(FoodGroups)).Cast<FoodGroups>());
 
       var canCreateFood = this.WhenAny(
                 x => x.Name,
@@ -23,9 +25,27 @@ namespace Health.Net.ViewModels
       CreateFood = ReactiveCommand.CreateAsyncTask(canCreateFood, OnCreateFood);
     }
 
-    Task OnCreateFood(object arg)
+    async Task OnCreateFood(object _)
     {
-      throw new NotImplementedException();
+      var newFood = new Food
+      {
+        Name = Name,
+        FoodGroup = SelectedFoodGroup,
+        Calories = Calories,
+        CaloriesFromFat = CaloriesFromFat,
+        FatGrams = Fat,
+        CholesterolMilligrams = Cholesterol,
+        SodiumMilligrams = Sodium,
+        CarbohydrateGrams = Carbohydrates,
+        FiberGrams = Fiber,
+        SugarGrams = Sugar,
+        ProteinGrams = Protein
+      };
+
+      await sqlite.InsertAsync(newFood);
+
+      // Reset the fields.
+      Name = string.Empty;
     }
 
     public void Dispose()
