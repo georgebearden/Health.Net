@@ -13,7 +13,8 @@ namespace Health.Net.Views
 
       this.WhenActivated(d =>
       {
-
+        d(this.Bind(ViewModel, vm => vm.SelectedDate, v => v.datePicker.SelectedDate));
+        d(this.BindCommand(ViewModel, vm => vm.LogIt, v => v.logItButton));
       });
     }
 
