@@ -4,10 +4,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Health.Net.Views"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
   <UserControl.Resources>
     <Style TargetType="TextBlock">
+      <Setter Property="FontSize" Value="16" />
+      <Setter Property="Margin" Value="5" />
+      <Setter Property="Height" Value="30" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <Style TargetType="TextBox" BasedOn="{StaticResource MetroTextBox}">
       <Setter Property="FontSize" Value="16" />
       <Setter Property="Margin" Value="5" />
       <Setter Property="Height" Value="30" />
@@ -24,11 +32,13 @@
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
-      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
     <DatePicker x:Name="datePicker" Grid.Row="0" />
-    <StackPanel x:Name="foodsStackPanel" Grid.Row="1" />
-    <Button x:Name="logItButton" Grid.Row="2" Content="Log it" Margin="5" Height="40" />
+    <TextBox x:Name="foodTextBox" Grid.Row="1" controls:TextBoxHelper.Watermark="What did you eat?" />
+    <Button x:Name="findItButton" Grid.Row="2" Content="Find it" Margin="5" Height="40" />
+    <Button x:Name="logItButton" Grid.Row="3" Content="Log it" Margin="5" Height="40" />
   </Grid>
 </UserControl>

@@ -14,6 +14,8 @@ namespace Health.Net.Views
       this.WhenActivated(d =>
       {
         d(this.Bind(ViewModel, vm => vm.SelectedDate, v => v.datePicker.SelectedDate));
+        d(this.Bind(ViewModel, vm => vm.Food, v => v.foodTextBox.Text));
+        d(this.BindCommand(ViewModel, vm => vm.FindIt, v => v.findItButton));
         d(this.BindCommand(ViewModel, vm => vm.LogIt, v => v.logItButton));
       });
     }
