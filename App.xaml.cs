@@ -36,6 +36,7 @@ namespace Health.Net
           
         var sqlite = kernel.Get<SQLiteAsyncConnection>();
         await sqlite.CreateTableAsync<Food>();
+        await sqlite.CreateTableAsync<FoodLog>();
       });
 
       Current.MainWindow = kernel.Get<MainWindow>();
