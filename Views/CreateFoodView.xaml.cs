@@ -1,12 +1,11 @@
-﻿using System.Linq;
-using Health.Net.ViewModels;
+﻿using Health.Net.ViewModels;
 using ReactiveUI;
 
 namespace Health.Net.Views
 {
-  public partial class AddFoodView : IViewFor<AddFoodViewModel>
+  public partial class CreateFoodView : IViewFor<AddFoodViewModel>
   {
-    public AddFoodView()
+    public CreateFoodView()
     {
       InitializeComponent();
 

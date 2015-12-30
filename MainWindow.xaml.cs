@@ -13,7 +13,7 @@ namespace Health.Net
       this.mainWindowViewModel = mainWindowViewModel;
       Closing += OnClosing;
 
-      var addFoodView = new AddFoodView {ViewModel = mainWindowViewModel.AddFoodViewModel};
+      var addFoodView = new CreateFoodView {ViewModel = mainWindowViewModel.AddFoodViewModel};
       addFoodTabItem.Content = addFoodView;
     }
 
