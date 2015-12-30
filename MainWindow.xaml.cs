@@ -1,25 +1,17 @@
-﻿using System;
-using Health.Net.Views;
+﻿using Health.Net.Views;
 
 namespace Health.Net
 {
   public partial class MainWindow
   {
-    readonly MainWindowViewModel mainWindowViewModel;
-    public MainWindow(MainWindowViewModel mainWindowViewModel)
+    public MainWindow(
+      CreateFoodView createFoodView,
+      FoodLogView foodLogView)
     {
       InitializeComponent();
 
-      this.mainWindowViewModel = mainWindowViewModel;
-      Closing += OnClosing;
-
-      var addFoodView = new CreateFoodView {ViewModel = mainWindowViewModel.AddFoodViewModel};
-      addFoodTabItem.Content = addFoodView;
-    }
-
-    void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
-    {
-      mainWindowViewModel.Dispose();
+      createFoodTabItem.Content = createFoodView;
+      foodLogTabItem.Content = foodLogView;
     }
   }
 }

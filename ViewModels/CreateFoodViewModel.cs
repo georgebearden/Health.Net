@@ -8,11 +8,11 @@ using SQLite.Net.Async;
 
 namespace Health.Net.ViewModels
 {
-  public class AddFoodViewModel : ReactiveObject, IDisposable
+  public class CreateFoodViewModel : ReactiveObject, IDisposable
   {
     readonly SQLiteAsyncConnection sqlite;
 
-    public AddFoodViewModel(SQLiteAsyncConnection sqlite)
+    public CreateFoodViewModel(SQLiteAsyncConnection sqlite)
     {
       this.sqlite = sqlite;
 

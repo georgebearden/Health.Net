@@ -3,11 +3,13 @@ using ReactiveUI;
 
 namespace Health.Net.Views
 {
-  public partial class CreateFoodView : IViewFor<AddFoodViewModel>
+  public partial class CreateFoodView : IViewFor<CreateFoodViewModel>
   {
-    public CreateFoodView()
+    public CreateFoodView(CreateFoodViewModel viewModel)
     {
       InitializeComponent();
+
+      ViewModel = viewModel;
 
       this.WhenActivated(d =>
       {
@@ -30,9 +32,9 @@ namespace Health.Net.Views
     object IViewFor.ViewModel
     {
       get { return ViewModel; }
-      set { ViewModel = (AddFoodViewModel)value; }
+      set { ViewModel = (CreateFoodViewModel)value; }
     }
 
-    public AddFoodViewModel ViewModel { get; set; }
+    public CreateFoodViewModel ViewModel { get; set; }
   }
 }

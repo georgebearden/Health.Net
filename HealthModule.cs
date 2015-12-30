@@ -1,6 +1,7 @@
 ﻿using System;
 using Ninject.Modules;
 using Health.Net.ViewModels;
+using Health.Net.Views;
 using SQLite.Net;
 using SQLite.Net.Async;
 using SQLite.Net.Platform.Win32;
@@ -18,8 +19,10 @@ namespace Health.Net
 
       Bind<SQLiteAsyncConnection>().ToConstant(new SQLiteAsyncConnection(connFactory) );
       Bind<MainWindow>().ToSelf().InSingletonScope();
-      Bind<MainWindowViewModel>().ToSelf().InSingletonScope();
-      Bind<AddFoodViewModel>().ToSelf().InSingletonScope();
+      Bind<CreateFoodView>().ToSelf().InSingletonScope();
+      Bind<CreateFoodViewModel>().ToSelf().InSingletonScope();
+      Bind<FoodLogView>().ToSelf().InSingletonScope();
+      Bind<FoodLogViewModel>().ToSelf().InSingletonScope();
     }
   }
 }

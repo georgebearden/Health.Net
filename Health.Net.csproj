@@ -120,10 +120,13 @@
     <Compile Include="AppConfig.cs" />
     <Compile Include="DebugConverter.cs" />
     <Compile Include="HealthModule.cs" />
-    <Compile Include="MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\AddFoodViewModel.cs" />
+    <Compile Include="ViewModels\CreateFoodViewModel.cs" />
+    <Compile Include="ViewModels\FoodLogViewModel.cs" />
     <Compile Include="Views\CreateFoodView.xaml.cs">
       <DependentUpon>CreateFoodView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FoodLogView.xaml.cs">
+      <DependentUpon>FoodLogView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -138,6 +141,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\CreateFoodView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FoodLogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
