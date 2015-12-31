@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Health.Net.Models;
 using ReactiveUI;
 using SQLite.Net.Async;
-using System.Linq;
 
 namespace Health.Net.ViewModels
 {
@@ -20,14 +19,30 @@ namespace Health.Net.ViewModels
       this.sqlite = sqlite;
       SelectedDate = DateTime.Now;
 
-      var canFindIt = this.WhenAny(
+      FindIt = ReactiveCommand.CreateAsyncTask(FindItImpl);
+      FindIt.Subscribe(async foodId =>
+      {
+        if (foodId == 0)
+          return;
+
+        var newFoodLog = new FoodLog
+        {
+          // ReSharper disable once PossibleInvalidOperationException
+          Date = SelectedDate.Value,
+          Food = foodId
+        };
+
+        await sqlite.InsertAsync(newFoodLog);
+
+        // todo instead of resetting the text to empty, it would be nice to give the 
+        // user some other type of feedback, like maybe a subtle created indicator that fades or something.
+        Food = string.Empty;
+      });
+
+      var canLogIt = this.WhenAny(
         x => x.Food,
         food => !string.IsNullOrEmpty(food.Value));
-      FindIt = ReactiveCommand.CreateAsyncTask(canFindIt, FindItImpl);
-
-      // LogIt can execute whenever FindIt returns a number other than 0.
-      var canLogIt = FindIt.Select(Convert.ToBoolean);
-      LogIt = ReactiveCommand.CreateAsyncTask(canLogIt, LogItImpl);
+      LogIt = ReactiveCommand.CreateAsyncTask(canLogIt, _ => LogItImpl());
     }
 
     public DateTime? SelectedDate
@@ -54,21 +69,10 @@ namespace Health.Net.ViewModels
       return foundFood?.Id ?? 0;
     }
 
-    async Task LogItImpl(object _)
+    async Task LogItImpl()
     {
-      var foodId = sqlite.Table<Food>()
-        .Where(f => string.Compare(f.Name, food, StringComparison.InvariantCultureIgnoreCase) == 0)
-        .FirstAsync()
-        .Id;
-
-      var newFoodLog = new FoodLog
-      {
-        // ReSharper disable once PossibleInvalidOperationException
-        Date = SelectedDate.Value,
-        Food = foodId
-      };
-
-      await sqlite.InsertAsync(newFoodLog);
+      FindIt.Execute(null);
+      await Task.CompletedTask;
     }
   }
 }

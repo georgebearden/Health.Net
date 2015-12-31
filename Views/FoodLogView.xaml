@@ -22,7 +22,7 @@
       <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
-    <Style TargetType="DatePicker">
+    <Style TargetType="DatePicker" BasedOn="{StaticResource MetroDatePicker}">
       <Setter Property="FontSize" Value="16" />
       <Setter Property="Margin" Value="5" />
       <Setter Property="Height" Value="30" />
@@ -34,11 +34,9 @@
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
     <DatePicker x:Name="datePicker" Grid.Row="0" />
     <TextBox x:Name="foodTextBox" Grid.Row="1" controls:TextBoxHelper.Watermark="What did you eat?" />
-    <Button x:Name="findItButton" Grid.Row="2" Content="Find it" Margin="5" Height="40" />
-    <Button x:Name="logItButton" Grid.Row="3" Content="Log it" Margin="5" Height="40" />
+    <Button x:Name="logItButton" Grid.Row="2" Content="Log it" Margin="5" Height="40" />
   </Grid>
 </UserControl>

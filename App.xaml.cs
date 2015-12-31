@@ -13,16 +13,17 @@ namespace Health.Net
   /// </summary>
   public partial class App
   {
+    MainWindow mainWindow;
+
     protected override void OnStartup(StartupEventArgs e)
     {
       base.OnStartup(e);
 
       var kernel = new StandardKernel(new HealthModule());
 
-      
       Task.Run(async () =>
       {
-        // Do not recreate the database if it exists.
+        // Do not recreate the database if it exists. (and prob. also if the schemas are the same...).
         if (File.Exists(AppConfig.DbPath))
         {
           var backupFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Health.Net");
@@ -39,8 +40,16 @@ namespace Health.Net
         await sqlite.CreateTableAsync<FoodLog>();
       });
 
-      Current.MainWindow = kernel.Get<MainWindow>();
+      mainWindow = kernel.Get<MainWindow>();
+      Current.MainWindow = mainWindow;
       Current.MainWindow.ShowDialog();
+    }
+
+    protected override void OnExit(ExitEventArgs e)
+    {
+      mainWindow.Dispose();
+
+      base.OnExit(e);
     }
   }
 }
